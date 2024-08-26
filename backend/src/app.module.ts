@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './api/auth/auth.module';
+import { ApiModule } from './api/api.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,8 +18,7 @@ import { AuthModule } from './auth/auth.module';
       }),
     }),
     AuthModule,
+    ApiModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

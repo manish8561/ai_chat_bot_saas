@@ -7,6 +7,9 @@ Nest JS
 Node Version 20.16.0 or more
 Docker
 
+### Guide to get Open AI keys
+Go this link [Open AI](https://platform.openai.com/docs/) register there and create user keys and organization keys for the project.
+
 ### Installation
 Goto to backend folder in the terminal and run following command:
 ```bash
