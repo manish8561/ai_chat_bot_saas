@@ -1,9 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
+import { Public } from './auth/decorators/auth.decorators';
 
 @Controller('api')
 export class ApiController {
-  @Get()
+  @Public()
+  @Get('healthcheck')
   healthCheck() {
-    return { success: true, message: 'OK' };
+    return { message: 'OK', time: Date.now() };
   }
 }

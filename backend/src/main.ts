@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,16 @@ async function bootstrap() {
     }),
   );
   const configService = app.get(ConfigService);
+
+  const config = new DocumentBuilder()
+    .setTitle('AI Chat bot SAAS')
+    .setDescription('The backend API description for AI Chat bot SAAS')
+    .setVersion('1.0.0')
+    .addBearerAuth()
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
 
   const port = configService.get<number>('PORT');
   await app.listen(port, () =>
