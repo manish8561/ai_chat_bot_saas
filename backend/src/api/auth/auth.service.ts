@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/api/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -13,7 +13,7 @@ export class AuthService {
   async signIn(loginDto: LoginDto): Promise<any> {
     const user = await this.usersService.findOne(loginDto.email);
     if (user?.password !== loginDto.password) {
-      throw new UnauthorizedException();
+      throw new HttpException('Invalid crendentials', 401);
     }
 
     // TODO: Generate a JWT and return it here

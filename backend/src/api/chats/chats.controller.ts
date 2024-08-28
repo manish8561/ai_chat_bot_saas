@@ -10,7 +10,10 @@ import {
 import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Chats')
 @Controller('api/chats')
 export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
