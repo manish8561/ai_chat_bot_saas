@@ -16,7 +16,7 @@ export class User {
     example: 'johncarter@gmail.com',
     description: 'The email of the user',
   })
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @ApiProperty({

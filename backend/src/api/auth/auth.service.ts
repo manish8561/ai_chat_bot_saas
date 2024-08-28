@@ -1,7 +1,14 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/api/users/users.service';
+import { compare } from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { RegisterDto } from './dto/register.dto';
+import {
+  INVALID_CREDENTAILS,
+  USER_ALREADY_EXISTS,
+  USER_NOT_REGISTERED,
+} from 'src/common/constants/response.messages';
 
 @Injectable()
 export class AuthService {
@@ -10,15 +17,30 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(loginDto: LoginDto): Promise<any> {
+  async register(registerDto: RegisterDto): Promise<{ access_token: string }> {
+    const userExist = await this.usersService.findOne(registerDto.email);
+    if (userExist) {
+      throw new HttpException(USER_ALREADY_EXISTS, 401);
+    }
+    const user = await this.usersService.create(registerDto);
+    const payload = { sub: user['_id'], role: user.role };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
+  }
+
+  async login(loginDto: LoginDto): Promise<{ access_token: string }> {
     const user = await this.usersService.findOne(loginDto.email);
-    if (user?.password !== loginDto.password) {
-      throw new HttpException('Invalid crendentials', 401);
+    if (!user) {
+      throw new HttpException(USER_NOT_REGISTERED, 401);
+    }
+    const isPasswordCorrect = await compare(loginDto.password, user.password);
+    if (!isPasswordCorrect) {
+      throw new HttpException(INVALID_CREDENTAILS, 403);
     }
 
-    // TODO: Generate a JWT and return it here
-    // instead of the user object
-    const payload = { sub: user['_id'], username: user.name };
+    const payload = { sub: user['_id'], role: user.role };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };

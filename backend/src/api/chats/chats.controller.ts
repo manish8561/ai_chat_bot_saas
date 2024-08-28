@@ -11,9 +11,12 @@ import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/common/role/role.decorator';
+import { Role } from 'src/common/role/role.enum';
 
 @ApiBearerAuth()
 @ApiTags('Chats')
+@Roles(Role.Admin)
 @Controller('api/chats')
 export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
