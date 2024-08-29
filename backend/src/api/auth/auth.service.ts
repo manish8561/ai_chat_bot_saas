@@ -9,6 +9,7 @@ import {
   USER_ALREADY_EXISTS,
   USER_NOT_REGISTERED,
 } from 'src/common/constants/response.messages';
+import { AuthResponse } from 'src/common/types';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(registerDto: RegisterDto): Promise<{ access_token: string }> {
+  async register(registerDto: RegisterDto): Promise<AuthResponse> {
     const userExist = await this.usersService.findOne(registerDto.email);
     if (userExist) {
       throw new HttpException(USER_ALREADY_EXISTS, 401);
@@ -26,11 +27,11 @@ export class AuthService {
     const payload = { sub: user['_id'], role: user.role };
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      accessToken: await this.jwtService.signAsync(payload),
     };
   }
 
-  async login(loginDto: LoginDto): Promise<{ access_token: string }> {
+  async login(loginDto: LoginDto): Promise<AuthResponse> {
     const user = await this.usersService.findOne(loginDto.email);
     if (!user) {
       throw new HttpException(USER_NOT_REGISTERED, 401);
@@ -42,7 +43,7 @@ export class AuthService {
 
     const payload = { sub: user['_id'], role: user.role };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      accessToken: await this.jwtService.signAsync(payload),
     };
   }
 }

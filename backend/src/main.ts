@@ -3,10 +3,16 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+
+  const configService = app.get(ConfigService);
+
+  const coookieSecret = configService.get<string>('COOKIE_SECRET');
+  app.use(cookieParser(coookieSecret));
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -14,7 +20,6 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()
     .setTitle('AI Chat bot SAAS')
