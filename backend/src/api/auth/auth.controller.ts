@@ -14,10 +14,12 @@ import { Public } from './decorators/auth.decorators';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RegisterDto } from './dto/register.dto';
 import { Response } from 'express';
+import { createCookie } from './helpers/createCookie';
+
 @ApiTags('Auth')
 @Controller('api/auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -27,23 +29,19 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const result = await this.authService.register(registerDto);
-    const expires = new Date();
-    expires.setDate(expires.getDate() + 1);
-    response.cookie('accessToken', result.accessToken, {
-      path: '/',
-      domain: 'localhost',
-      expires,
-      httpOnly: true,
-      signed: true,
-    });
+
+    await createCookie(result.accessToken, response);
     return result;
   }
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  async login(@Body() loginDto: LoginDto, response: Response) {
+    const result = await this.authService.login(loginDto);
+    
+    await createCookie(result.accessToken, response);
+    return result;
   }
 
   @ApiBearerAuth()

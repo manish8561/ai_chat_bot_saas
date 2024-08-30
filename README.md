@@ -20,6 +20,10 @@ If you want to use mongodb with docker(replace volume path per you filesystem):
 ```bash
 docker run --name mongodb -p 27017:27017 -v /media/ishanvi/data/storages/mongo:/data/db -d --rm mongodb/mongodb-community-server:latest
 ```
+example
+```bash
+docker run --name mongodb -p 27017:27017 -v /home/manish/office/projects/ai_chat_bot_saas/mongodb/data:/data/db -d --rm mongodb/mongodb-community-server:latest
+```
 
 To run backend:
 ```bash
@@ -34,3 +38,5 @@ npm run start:dev
 ### Author
 Manish Sharma
 [@manish8561](https://github.com/manish8561/)
+
+
