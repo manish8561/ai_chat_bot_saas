@@ -35,6 +35,8 @@ To run backend in watch mode:
 npm run start:dev
 ```
 
+Using react-icons mui react-router-dom react-hot-toast
+
 ### Author
 Manish Sharma
 [@manish8561](https://github.com/manish8561/)
