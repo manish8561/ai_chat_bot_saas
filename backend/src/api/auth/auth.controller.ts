@@ -37,10 +37,12 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() loginDto: LoginDto, response: Response) {
+  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) response: Response) {
     const result = await this.authService.login(loginDto);
-    
+
     await createCookie(result.accessToken, response);
+    const expires = new Date();
+    
     return result;
   }
 
