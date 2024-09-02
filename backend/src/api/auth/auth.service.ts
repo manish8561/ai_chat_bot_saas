@@ -7,16 +7,18 @@ import { RegisterDto } from './dto/register.dto';
 import {
   INVALID_CREDENTAILS,
   USER_ALREADY_EXISTS,
+  USER_NOT_FOUND,
   USER_NOT_REGISTERED,
 } from 'src/common/constants/response.messages';
 import { AuthResponse } from 'src/common/types';
+import { User } from '../users/schemas/user.schemas';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async register(registerDto: RegisterDto): Promise<AuthResponse> {
     const userExist = await this.usersService.findOne(registerDto.email);
@@ -28,6 +30,7 @@ export class AuthService {
 
     return {
       accessToken: await this.jwtService.signAsync(payload),
+      name: user.name
     };
   }
 
@@ -44,6 +47,14 @@ export class AuthService {
     const payload = { sub: user['_id'], role: user.role };
     return {
       accessToken: await this.jwtService.signAsync(payload),
+      name: user.name
     };
+  }
+  async verifyUser(id: string): Promise<User> {
+    const user = await this.usersService.findById(id);
+    if (!user) {
+      throw new HttpException(USER_NOT_FOUND, 401);
+    }
+    return user;
   }
 }

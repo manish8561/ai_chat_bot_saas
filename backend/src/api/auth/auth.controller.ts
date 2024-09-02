@@ -42,13 +42,13 @@ export class AuthController {
 
     await createCookie(result.accessToken, response);
     const expires = new Date();
-    
+
     return result;
   }
 
   @ApiBearerAuth()
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @Get('auth-status')
+  async authStatus(@Request() req) {
+    return await this.authService.verifyUser(req.user.sub);
   }
 }

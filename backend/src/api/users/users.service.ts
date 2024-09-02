@@ -9,7 +9,7 @@ import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     createUserDto.password = await hash(createUserDto.password, 10);
@@ -22,6 +22,9 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
+  async findById(_id: string): Promise<User | undefined> {
+    return this.userModel.findOne({ _id }, { name: 1, email: 1, role: 1, status: 1, _id: 0 }).exec();
+  }
   async findOne(email: string): Promise<User | undefined> {
     return this.userModel.findOne({ email }).exec();
   }

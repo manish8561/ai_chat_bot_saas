@@ -9,6 +9,7 @@ import { Request } from 'express';
 import { IS_PUBLIC_KEY } from './decorators/auth.decorators';
 import { Reflector } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
+import { COOKIE_NAME } from 'src/common/constants';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,7 +17,7 @@ export class AuthGuard implements CanActivate {
     private configSerive: ConfigService,
     private jwtService: JwtService,
     private reflector: Reflector,
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
@@ -47,6 +48,10 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
+    const cookieToken = request.signedCookies[`${COOKIE_NAME}`];
+    if (cookieToken) {
+      return cookieToken;
+    }
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }
