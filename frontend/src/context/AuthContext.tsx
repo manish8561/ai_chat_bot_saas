@@ -4,7 +4,7 @@ import { checkAuthStatus, loginUser } from "../helpers/api-communicator";
 type User = {
     name: string;
     email: string;
-
+    role: string;
 };
 type UserAuth = {
     isLoggedIn: boolean;
@@ -22,22 +22,22 @@ export const AuthProvider = ({ children }: { children: ReactNode; }) => {
     //
     useEffect(() => {
         // from cookie 
-         (async function () {
+        (async function () {
             const data = await checkAuthStatus();
             if (data) {
-                setUser({ email: data.email, name: data.name });
+                setUser({ email: data.email, name: data.name, role: data.role });
                 setIsLoggedIn(true);
             } else {
                 setUser(null);
                 setIsLoggedIn(false);
             }
-        } ());
+        }());
     }, []);
 
     const login = async (email: string, password: string) => {
         const data = await loginUser(email, password);
         if (data) {
-            setUser({ email, name: data.name });
+            setUser({ email, name: data.name, role: 'user' });
             setIsLoggedIn(true);
         }
     };
