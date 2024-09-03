@@ -42,3 +42,5 @@ Manish Sharma
 [@manish8561](https://github.com/manish8561/)
 
 
+### Reference
+https://github.com/openai/openai-node

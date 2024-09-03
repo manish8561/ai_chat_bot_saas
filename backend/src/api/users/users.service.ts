@@ -5,6 +5,7 @@ import { User } from './schemas/user.schemas';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { hash } from 'bcrypt';
+import { Role } from 'src/common/role/role.enum';
 // This should be a real class/interface representing a user entity
 
 @Injectable()
@@ -19,7 +20,7 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return this.userModel.find({ role: Role.User }).exec();
   }
 
   async findById(_id: string): Promise<User | undefined> {
