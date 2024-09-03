@@ -6,7 +6,6 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { hash } from 'bcrypt';
 import { Role } from 'src/common/role/role.enum';
-// This should be a real class/interface representing a user entity
 
 @Injectable()
 export class UsersService {
@@ -26,15 +25,16 @@ export class UsersService {
   async findById(_id: string): Promise<User | undefined> {
     return this.userModel.findOne({ _id }, { name: 1, email: 1, role: 1, status: 1, _id: 0 }).exec();
   }
+
   async findOne(email: string): Promise<User | undefined> {
     return this.userModel.findOne({ email }).exec();
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(_id: string, updateUserDto: UpdateUserDto): Promise<any> {
+    return this.userModel.updateOne({ _id }, updateUserDto).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(_id: string) {
+    return this.userModel.deleteOne({ _id }).exec();
   }
 }

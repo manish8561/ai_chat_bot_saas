@@ -15,4 +15,14 @@ describe('ApiController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+  describe('call api for health check', () => {
+    it('should return message ok for successfull', async () => {
+      const result = {
+        message: 'OK',
+        time: Date.now()
+      };
+
+      expect(controller.healthCheck()).toStrictEqual(result);
+    });
+  });
 });
