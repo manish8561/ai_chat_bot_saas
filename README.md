@@ -35,7 +35,14 @@ To run backend in watch mode:
 npm run start:dev
 ```
 
-Using react-icons mui react-router-dom react-hot-toast
+To run frotend in dev mode:
+```bash
+cd frontend
+npm i
+npm run dev
+```
+
+Using packages in the frontend vite react-icons mui react-router-dom react-hot-toast
 
 ### Author
 Manish Sharma
