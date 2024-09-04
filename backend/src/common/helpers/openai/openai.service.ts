@@ -5,7 +5,6 @@ export class OpenAiService {
     openai: OpenAI;
     constructor(@Inject('OPENAI_MODULE_OPTIONS') private options: any) {
         this.openai = new OpenAI({ apiKey: options.openai_secret });
-
     }
 
     public async createChat(messages: any) {

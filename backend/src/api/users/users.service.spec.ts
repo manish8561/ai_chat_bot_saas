@@ -5,10 +5,14 @@ import { User } from './schemas/user.schemas';
 import { getModelToken } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 
-import * as bcrypt from 'bcrypt';
+import { hash } from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Role } from 'src/common/role/role.enum';
 import { UserStatus } from 'src/common/enums';
+
+jest.mock('bcrypt', () => ({
+  hash: jest.fn(),
+}));
 
 
 describe('UsersService', () => {
@@ -24,8 +28,6 @@ describe('UsersService', () => {
     role: Role.User,
     status: UserStatus.Active,
   };
-
-
 
   const mockUserModel: any = jest.fn().mockImplementation(() => ({
     save: jest.fn().mockResolvedValue(mockUser),
@@ -73,13 +75,13 @@ describe('UsersService', () => {
         password: 'mockPassword',
       };
 
-      jest.spyOn(bcrypt, 'hash').mockResolvedValue('hashedPassword');
+      (hash as jest.Mock).mockResolvedValue('hashedPassword');
       const newUser = { ...createUserDto, _id: 'mockId', role: Role.User, status: UserStatus.Active };
 
 
       const result = await service.create(createUserDto);
 
-      expect(bcrypt.hash).toHaveBeenCalledWith('mockPassword', 10);
+      expect(hash).toHaveBeenCalledWith('mockPassword', 10);
       expect(result).toEqual(newUser);
     });
   });

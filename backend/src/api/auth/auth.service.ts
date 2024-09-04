@@ -50,6 +50,7 @@ export class AuthService {
       name: user.name
     };
   }
+  
   async verifyUser(id: string): Promise<User> {
     const user = await this.usersService.findById(id);
     if (!user) {

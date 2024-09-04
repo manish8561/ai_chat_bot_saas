@@ -27,7 +27,6 @@ import { OpenAiModule } from './common/helpers/openai/openai.module';
       },
       inject: [ConfigService],
     }),
-
     AuthModule,
     ApiModule,
   ],

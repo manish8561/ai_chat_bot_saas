@@ -3,8 +3,6 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { Role } from 'src/common/role/role.enum';
 import { UserStatus } from 'src/common/enums';
-import { getModelToken } from '@nestjs/mongoose';
-import { User } from './schemas/user.schemas';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -21,8 +19,6 @@ describe('UsersController', () => {
     status: UserStatus.Active,
   };
 
-  const mockUserModel: any = jest.fn();
-
   const mockUsersService = {
     create: jest.fn().mockResolvedValue(mockUser),
     findAll: jest.fn().mockResolvedValue([mockUser]),
@@ -38,10 +34,6 @@ describe('UsersController', () => {
       providers: [{
         provide: UsersService,
         useValue: mockUsersService,
-      },
-      {
-        provide: getModelToken(User.name),
-        useValue: mockUserModel,
       },
       ],
     }).compile();

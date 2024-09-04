@@ -6,6 +6,7 @@ import { OpenAiService } from 'src/common/helpers/openai/openai.service';
 @Injectable()
 export class ChatsService {
   constructor(private openAiSerivce: OpenAiService) { }
+  
   async create(createChatDto: CreateChatDto) {
     console.log(createChatDto);
     const completion = await this.openAiSerivce.createChat(

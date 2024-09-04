@@ -31,7 +31,6 @@ jest.mock('openai', () => {
 
 describe('OpenAiService', () => {
   let service: OpenAiService;
-  let createChatMock: jest.Mock;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -45,7 +44,6 @@ describe('OpenAiService', () => {
     }).compile();
 
     service = module.get<OpenAiService>(OpenAiService);
-    // Extract the mock for create method
   });
 
   it('should be defined', () => {
@@ -61,11 +59,6 @@ describe('OpenAiService', () => {
 
 
       const result = await service.createChat(mockMessages);
-
-      // expect(createChatMock).toHaveBeenCalledWith({
-      //   messages: mockMessages,
-      //   model: 'gpt-3.5-turbo',
-      // });
 
       expect(result).toEqual(mockChatCompletion);
     });
