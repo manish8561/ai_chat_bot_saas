@@ -62,3 +62,4 @@ Manish Sharma
 
 ### Reference
 https://github.com/openai/openai-node
+https://www.freecodecamp.org/news/build-an-ai-chatbot-with-the-mern-stack/

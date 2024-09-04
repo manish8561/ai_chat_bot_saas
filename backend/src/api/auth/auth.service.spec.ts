@@ -22,7 +22,6 @@ describe('AuthService', () => {
     let jwtService: JwtService;
     let configService: ConfigService;
 
-
     const mockUser = {
         _id: 'mockId',
         email: 'mock@example.com',
