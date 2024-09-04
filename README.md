@@ -1,4 +1,5 @@
 # AI Chat Bot SAAS
+AI chat bot using Open AI, NestJS, MongoDB in the backend and Vite with ReactJs in the frontend.
 
 ### Requirements
 Open AI and API Keys
@@ -33,6 +34,16 @@ npm start
 To run backend in watch mode:
 ```bash
 npm run start:dev
+```
+
+To run test
+```bash
+npm test
+```
+
+To run test for single file
+```bash
+npm test <path to spec file>
 ```
 
 To run frotend in dev mode:

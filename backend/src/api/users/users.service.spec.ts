@@ -25,6 +25,8 @@ describe('UsersService', () => {
     status: UserStatus.Active,
   };
 
+
+
   const mockUserModel: any = jest.fn().mockImplementation(() => ({
     save: jest.fn().mockResolvedValue(mockUser),
   }));
