@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-  ) { }
+  ) {}
 
   async register(registerDto: RegisterDto): Promise<AuthResponse> {
     const userExist = await this.usersService.findOne(registerDto.email);
@@ -30,7 +30,7 @@ export class AuthService {
 
     return {
       accessToken: await this.jwtService.signAsync(payload),
-      name: user.name
+      name: user.name,
     };
   }
 
@@ -47,10 +47,10 @@ export class AuthService {
     const payload = { sub: user['_id'], role: user.role };
     return {
       accessToken: await this.jwtService.signAsync(payload),
-      name: user.name
+      name: user.name,
     };
   }
-  
+
   async verifyUser(id: string): Promise<User> {
     const user = await this.usersService.findById(id);
     if (!user) {
