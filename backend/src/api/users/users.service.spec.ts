@@ -14,11 +14,8 @@ jest.mock('bcrypt', () => ({
   hash: jest.fn(),
 }));
 
-
 describe('UsersService', () => {
   let service: UsersService;
-
-  let model: Model<User>;
 
   const mockUser = {
     _id: 'mockId',
@@ -51,7 +48,8 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService,
+      providers: [
+        UsersService,
         {
           provide: getModelToken(User.name),
           useValue: mockUserModel,
@@ -76,8 +74,12 @@ describe('UsersService', () => {
       };
 
       (hash as jest.Mock).mockResolvedValue('hashedPassword');
-      const newUser = { ...createUserDto, _id: 'mockId', role: Role.User, status: UserStatus.Active };
-
+      const newUser = {
+        ...createUserDto,
+        _id: 'mockId',
+        role: Role.User,
+        status: UserStatus.Active,
+      };
 
       const result = await service.create(createUserDto);
 

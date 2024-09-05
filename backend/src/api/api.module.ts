@@ -20,4 +20,4 @@ import { ChatsModule } from './chats/chats.module';
     },
   ],
 })
-export class ApiModule { }
+export class ApiModule {}

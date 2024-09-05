@@ -10,7 +10,9 @@ interface OpenAiModuleOptions {
 @Module({})
 export class OpenAiModule {
   static forRootAsync(options: {
-    useFactory: (...args: any[]) => Promise<OpenAiModuleOptions> | OpenAiModuleOptions;
+    useFactory: (
+      ...args: any[]
+    ) => Promise<OpenAiModuleOptions> | OpenAiModuleOptions;
     inject?: any[];
   }): DynamicModule {
     const asyncProvider: Provider = {

@@ -25,7 +25,7 @@ import { Role } from 'src/common/role/role.enum';
 @Roles(Role.Admin)
 @Controller('api/users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 200, description: 'Create Record' })

@@ -21,7 +21,9 @@ import { OpenAiModule } from './common/helpers/openai/openai.module';
     OpenAiModule.forRootAsync({
       useFactory: async (configService: ConfigService) => {
         return {
-          openai_orgainsation_id: configService.get<string>('OPENAI_ORGANIZATION_ID'),
+          openai_orgainsation_id: configService.get<string>(
+            'OPENAI_ORGANIZATION_ID',
+          ),
           openai_secret: configService.get<string>('OPENAI_SECRET'),
         };
       },
@@ -31,4 +33,4 @@ import { OpenAiModule } from './common/helpers/openai/openai.module';
     ApiModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OpenAiService } from './openai.service';
 
-
 const mockChatCompletion = {
   id: 'mock-id',
   object: 'chat.completion',
@@ -56,7 +55,6 @@ describe('OpenAiService', () => {
         { role: 'user', content: 'Hello!' },
         { role: 'assistant', content: 'Hi! How can I help you today?' },
       ];
-
 
       const result = await service.createChat(mockMessages);
 

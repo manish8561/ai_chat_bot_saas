@@ -27,14 +27,14 @@ describe('UsersController', () => {
     remove: jest.fn().mockResolvedValue({ deletedCount: 1 }),
   };
 
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [{
-        provide: UsersService,
-        useValue: mockUsersService,
-      },
+      providers: [
+        {
+          provide: UsersService,
+          useValue: mockUsersService,
+        },
       ],
     }).compile();
 

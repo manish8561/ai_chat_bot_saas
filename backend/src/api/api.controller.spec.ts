@@ -19,7 +19,7 @@ describe('ApiController', () => {
     it('should return message ok for successfull', async () => {
       const result = {
         message: 'OK',
-        time: Date.now()
+        time: Date.now(),
       };
 
       expect(controller.healthCheck()).toStrictEqual(result);

@@ -55,27 +55,40 @@ describe('AuthController', () => {
 
   describe('register', () => {
     it('should register a new user and set a cookie', async () => {
-      const registerDto: RegisterDto = { email: 'test@example.com', password: 'password', name: 'Test User' };
+      const registerDto: RegisterDto = {
+        email: 'test@example.com',
+        password: 'password',
+        name: 'Test User',
+      };
       mockAuthService.register.mockResolvedValue(mockAuthResponse);
 
       const result = await controller.register(registerDto, mockResponse);
 
       expect(result).toEqual(mockAuthResponse);
       expect(authService.register).toHaveBeenCalledWith(registerDto);
-      expect(createCookie).toHaveBeenCalledWith(mockAuthResponse.accessToken, mockResponse);
+      expect(createCookie).toHaveBeenCalledWith(
+        mockAuthResponse.accessToken,
+        mockResponse,
+      );
     });
   });
 
   describe('login', () => {
     it('should log in a user and set a cookie', async () => {
-      const loginDto: LoginDto = { email: 'test@example.com', password: 'password' };
+      const loginDto: LoginDto = {
+        email: 'test@example.com',
+        password: 'password',
+      };
       mockAuthService.login.mockResolvedValue(mockAuthResponse);
 
       const result = await controller.login(loginDto, mockResponse);
 
       expect(result).toEqual(mockAuthResponse);
       expect(authService.login).toHaveBeenCalledWith(loginDto);
-      expect(createCookie).toHaveBeenCalledWith(mockAuthResponse.accessToken, mockResponse);
+      expect(createCookie).toHaveBeenCalledWith(
+        mockAuthResponse.accessToken,
+        mockResponse,
+      );
     });
   });
 
