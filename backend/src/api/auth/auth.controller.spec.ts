@@ -4,9 +4,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Response } from 'express';
-import { createCookie } from './helpers/createCookie';
-
-jest.mock('./helpers/createCookie');
+import { CookieHelper } from './helpers';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -20,6 +18,7 @@ describe('AuthController', () => {
 
   const mockResponse = {
     cookie: jest.fn(),
+    clearCookie: jest.fn(),
   } as unknown as Response;
 
   const mockUser = {
@@ -62,12 +61,15 @@ describe('AuthController', () => {
       };
       mockAuthService.register.mockResolvedValue(mockAuthResponse);
 
+      jest.spyOn(CookieHelper, 'createCookie');
+      jest.spyOn(CookieHelper, 'clearCookie');
+
       const result = await controller.register(registerDto, mockResponse);
 
       expect(result).toEqual(mockAuthResponse);
       expect(authService.register).toHaveBeenCalledWith(registerDto);
-      expect(createCookie).toHaveBeenCalledWith(
-        mockAuthResponse.accessToken,
+      expect(CookieHelper.createCookie).toHaveBeenCalledWith(
+        mockAuthResponse,
         mockResponse,
       );
     });
@@ -81,12 +83,15 @@ describe('AuthController', () => {
       };
       mockAuthService.login.mockResolvedValue(mockAuthResponse);
 
+      jest.spyOn(CookieHelper, 'createCookie');
+      jest.spyOn(CookieHelper, 'clearCookie');
+
       const result = await controller.login(loginDto, mockResponse);
 
       expect(result).toEqual(mockAuthResponse);
       expect(authService.login).toHaveBeenCalledWith(loginDto);
-      expect(createCookie).toHaveBeenCalledWith(
-        mockAuthResponse.accessToken,
+      expect(CookieHelper.createCookie).toHaveBeenCalledWith(
+        mockAuthResponse,
         mockResponse,
       );
     });

@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
-import { Model } from 'mongoose';
 import { User } from './schemas/user.schemas';
 import { getModelToken } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -58,7 +57,6 @@ describe('UsersService', () => {
     }).compile();
 
     service = module.get<UsersService>(UsersService);
-    model = module.get<Model<User>>(getModelToken(User.name));
   });
 
   it('should be defined', () => {
