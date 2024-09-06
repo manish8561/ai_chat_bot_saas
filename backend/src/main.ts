@@ -7,9 +7,11 @@ import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: 'http://localhost:5173', credentials: true });
 
   const configService = app.get(ConfigService);
+
+  const origin = configService.get<string>('ORIGIN') || 'http://localhost:5173';
+  app.enableCors({ origin, credentials: true });
 
   const coookieSecret = configService.get<string>('COOKIE_SECRET');
   app.use(cookieParser(coookieSecret));
@@ -22,9 +24,9 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('AI Chat bot SAAS')
-    .setDescription('The backend API description for AI Chat bot SAAS')
-    .setVersion('1.0.0')
+    .setTitle('AI Chat Bot SAAS')
+    .setDescription('The backend API description for AI Chat Bot SAAS')
+    .setVersion('1.0.1')
     .addBearerAuth()
     .build();
 

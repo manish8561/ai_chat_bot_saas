@@ -23,11 +23,10 @@ import mongoose from 'mongoose';
     }),
     OpenAiModule.forRootAsync({
       useFactory: async (configService: ConfigService) => {
-        // for mongo debug enable and disable
+        // for mongo debugging enable and disable
         if (configService.get<boolean>('MONGO_DEBUG')) {
           mongoose.set('debug', true);
         }
-
         return {
           openai_orgainsation_id: configService.get<string>(
             'OPENAI_ORGANIZATION_ID',
