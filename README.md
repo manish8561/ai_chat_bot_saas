@@ -16,6 +16,7 @@ Goto to backend folder in the terminal and run following command:
 ```bash
 cd backend
 npm i
+cp .env-sample .env
 ```
 If you want to use mongodb with docker(replace volume path per you filesystem):
 ```bash
@@ -25,6 +26,8 @@ example
 ```bash
 docker run --name mongodb -p 27017:27017 -v /home/manish/office/projects/ai_chat_bot_saas/mongodb/data:/data/db -d --rm mongodb/mongodb-community-server:latest
 ```
+
+Add values in `.env` file before you start the server.
 
 To run backend:
 ```bash
