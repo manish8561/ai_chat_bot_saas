@@ -5,6 +5,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Response } from 'express';
 import { CookieHelper } from './helpers';
+import { Role } from 'src/common/helpers/role/role.enum';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -101,12 +102,24 @@ describe('AuthController', () => {
     it('should return the user information if verified', async () => {
       mockAuthService.verifyUser.mockResolvedValue(mockUser);
 
-      const req = { user: { sub: 'mockId' } };
+      const req: any = {
+        user: { sub: 'mockId', role: Role.User, exp: 0, iat: 0 },
+      };
 
       const result = await controller.authStatus(req);
 
       expect(result).toEqual(mockUser);
       expect(authService.verifyUser).toHaveBeenCalledWith('mockId');
+    });
+  });
+
+  describe('logout', () => {
+    it('should log out a user and delete a cookie', async () => {
+      jest.spyOn(CookieHelper, 'clearCookie');
+
+      await controller.logout(mockResponse);
+
+      expect(CookieHelper.clearCookie).toHaveBeenCalledWith(mockResponse);
     });
   });
 });

@@ -7,7 +7,7 @@ class CookieHelper {
     authResponse: AuthResponse,
     response: Response,
   ): Promise<AuthResponse> {
-    await this.clearCookie(COOKIE_NAME, response);
+    await this.clearCookie(response);
 
     const expires = new Date();
     expires.setDate(expires.getDate() + 1);
@@ -21,11 +21,8 @@ class CookieHelper {
     return authResponse;
   }
 
-  public async clearCookie(
-    cookieName: string,
-    response: Response,
-  ): Promise<void> {
-    response.clearCookie(cookieName, {
+  public async clearCookie(response: Response): Promise<void> {
+    response.clearCookie(COOKIE_NAME, {
       path: '/',
       domain: COOKIE_DOMAIN,
       httpOnly: true,

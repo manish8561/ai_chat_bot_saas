@@ -47,18 +47,15 @@ export class ChatsService {
       answerObj.content = 'Error from openapi';
     }
 
-    return await this.chatModel.insertMany([questionObj, answerObj]);
+    await this.chatModel.insertMany([questionObj, answerObj]);
+    return answerObj;
   }
 
   findAll(user: string): Promise<Chat[]> {
     return this.chatModel.find({ user }).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} chat`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} chat`;
+  async remove(user: string): Promise<any> {
+    return await this.chatModel.deleteMany({ user }).exec();
   }
 }

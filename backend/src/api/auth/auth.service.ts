@@ -7,11 +7,13 @@ import { RegisterDto } from './dto/register.dto';
 import {
   INVALID_CREDENTAILS,
   USER_ALREADY_EXISTS,
+  USER_INACTIVE,
   USER_NOT_FOUND,
   USER_NOT_REGISTERED,
 } from 'src/common/constants/response.messages';
 import { AuthResponse } from './types';
 import { User } from '../users/schemas/user.schemas';
+import { UserStatus } from 'src/common/enums';
 
 @Injectable()
 export class AuthService {
@@ -38,6 +40,9 @@ export class AuthService {
     const user = await this.usersService.findOne(loginDto.email);
     if (!user) {
       throw new HttpException(USER_NOT_REGISTERED, 401);
+    }
+    if (user.status === UserStatus.Inactive) {
+      throw new HttpException(USER_INACTIVE, 403);
     }
     const isPasswordCorrect = await compare(loginDto.password, user.password);
     if (!isPasswordCorrect) {

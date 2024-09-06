@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Req,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Req } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -31,13 +23,8 @@ export class ChatsController {
     return this.chatsService.findAll(req.user.sub);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.chatsService.findOne(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.chatsService.remove(+id);
+  @Delete()
+  remove(@Req() req: CustomRequest) {
+    return this.chatsService.remove(req.user.sub);
   }
 }

@@ -15,6 +15,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RegisterDto } from './dto/register.dto';
 import { Response } from 'express';
 import { CookieHelper } from './helpers';
+import { CustomRequest } from 'src/common/interfaces';
 
 @ApiTags('Auth')
 @Controller('api/auth')
@@ -22,7 +23,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Public()
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @Post('register')
   async register(
     @Body() registerDto: RegisterDto,
@@ -47,7 +48,13 @@ export class AuthController {
 
   @ApiBearerAuth()
   @Get('auth-status')
-  async authStatus(@Request() req) {
+  async authStatus(@Request() req: CustomRequest) {
     return await this.authService.verifyUser(req.user.sub);
+  }
+
+  @ApiBearerAuth()
+  @Get('logout')
+  async logout(@Res({ passthrough: true }) response: Response) {
+    return await CookieHelper.clearCookie(response);
   }
 }

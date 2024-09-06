@@ -109,6 +109,7 @@ describe('AuthService', () => {
 
     it('should return an AuthResponse if credentials are correct', async () => {
       const token = 'mockAccessToken';
+      console.log(mockUser);
       jest.spyOn(usersService, 'findOne').mockResolvedValue(mockUser);
       (compare as jest.Mock).mockResolvedValue(true);
 
@@ -135,6 +136,21 @@ describe('AuthService', () => {
         role: mockUser.role,
       });
     });
+  });
+  it('should throw an HttpException with 403 if user is inactive', async () => {
+    mockUser.status = UserStatus.Inactive;
+
+    jest.spyOn(usersService, 'findOne').mockResolvedValue(mockUser);
+    (compare as jest.Mock).mockResolvedValue(false);
+
+    const loginDto: LoginDto = {
+      email: 'mock@example.com',
+      password: 'password',
+    };
+
+    await expect(service.login(loginDto)).rejects.toThrow(HttpException);
+    await expect(service.login(loginDto)).rejects.toThrowError('USER_INACTIVE');
+    await expect(service.login(loginDto)).rejects.toHaveProperty('status', 403);
   });
 
   describe('register', () => {
