@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -13,7 +12,7 @@ const Footer = () => {
         }}
       >
         <p style={{ fontSize: "30px", textAlign: "center", padding: "20px" }}>
-          Built with love by
+          {`Built with love by`}
           <span>
             <Link
               style={{ color: "white", textTransform: "lowercase" }}
@@ -23,7 +22,7 @@ const Footer = () => {
               @manish8561
             </Link>
           </span>
-          💘
+          {`💘`}
         </p>
       </div>
     </footer>
