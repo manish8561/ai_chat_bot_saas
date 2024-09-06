@@ -53,7 +53,7 @@ npm i
 npm run dev
 ```
 
-Using packages in the frontend vite react-icons mui react-router-dom react-hot-toast
+Using packages in the frontend vite react-icons mui react-router-dom react-hot-toast react-syntax-highlighter react-type-animation
 
 ### Author
 Manish Sharma

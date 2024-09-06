@@ -18,10 +18,10 @@ const Register = () => {
     try {
       toast.loading("Signing Up", { id: "signup" });
       await auth?.register(name, email, password);
-      toast.success("Signed Up Successfully", { id: "signup" });
+      toast.success("User Register Successfully", { id: "signup" });
     } catch (error) {
       console.log(error);
-      toast.error("Signing Up Failed", { id: "signup" });
+      toast.error("User Regiter Is Failed", { id: "signup" });
     }
   };
   useEffect(() => {
@@ -32,7 +32,11 @@ const Register = () => {
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
-        <img src="airobot.png" alt="Robot" style={{ width: "400px" }} />
+        <img
+          src="robot.png"
+          alt="Robot"
+          style={{ width: "550px", height: "350px" }}
+        />
       </Box>
       <Box
         display={"flex"}

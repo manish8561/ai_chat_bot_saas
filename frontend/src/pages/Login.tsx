@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { IoIosLogIn } from "react-icons/io";
 import { useAuth } from "../context/AuthContext";
@@ -21,17 +21,22 @@ const Login = () => {
       toast.loading("Signing In", { id: "login" });
       await auth?.login(email, password);
       toast.success("Signed In Successfully", { id: "login" });
-      return navigate("/chat");
     } catch (error) {
       console.log(error);
       toast.error("Signed In Failed", { id: "login" });
     }
   };
 
+  useEffect(() => {
+    if (auth?.user) {
+      return navigate("/chat");
+    }
+  }, [auth, navigate]);
+
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
-        <img src="airobot.png" alt="Robot" style={{ width: "400px" }} />
+        <img src="robot.png" alt="Robot" style={{ width: "550px" , height:"350px" }} />
       </Box>
       <Box
         display={"flex"}

@@ -9,10 +9,6 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
-.image-inverted {
-  filter: invert(100%)
-}
-
 .nav-link {
   font-weight: 600;
   text-transform: uppercase;
@@ -21,4 +17,21 @@ body {
   border-radius: 10px;
   text-decoration: none;
   letter-spacing: 1px;
+}
+
+.image-inverted {
+  filter: invert(100%)
+}
+
+.rotate {
+  animation: rotation 8s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
