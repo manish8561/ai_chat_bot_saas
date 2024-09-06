@@ -17,8 +17,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './schemas/user.schemas';
-import { Roles } from 'src/common/role/role.decorator';
-import { Role } from 'src/common/role/role.enum';
+import { Roles } from 'src/common/helpers/role/role.decorator';
+import { Role } from 'src/common/helpers/role/role.enum';
 
 @ApiBearerAuth()
 @ApiTags('Users')

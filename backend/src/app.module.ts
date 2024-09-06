@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './api/auth/auth.module';
 import { ApiModule } from './api/api.module';
 import { OpenAiModule } from './common/helpers/openai/openai.module';
+
+import mongoose from 'mongoose';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -13,6 +15,7 @@ import { OpenAiModule } from './common/helpers/openai/openai.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
+
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('MONGO_URI'),
         retryAttempts: 3,
@@ -20,6 +23,11 @@ import { OpenAiModule } from './common/helpers/openai/openai.module';
     }),
     OpenAiModule.forRootAsync({
       useFactory: async (configService: ConfigService) => {
+        // for mongo debug enable and disable
+        if (configService.get<boolean>('MONGO_DEBUG')) {
+          mongoose.set('debug', true);
+        }
+
         return {
           openai_orgainsation_id: configService.get<string>(
             'OPENAI_ORGANIZATION_ID',

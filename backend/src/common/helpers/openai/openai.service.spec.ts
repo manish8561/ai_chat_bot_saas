@@ -51,6 +51,27 @@ describe('OpenAiService', () => {
 
   describe('createChat', () => {
     it('should call OpenAI API with correct parameters and return the result', async () => {
+      const mockChatCompletion = {
+        id: 'chatcmpl-7aBTkkSW8CvYJeiK98QylGthKLqkz',
+        object: 'chat.completion',
+        created: 1684437431,
+        model: 'gpt-3.5-turbo-0301',
+        usage: {
+          prompt_tokens: 14,
+          completion_tokens: 7,
+          total_tokens: 21,
+        },
+        choices: [
+          {
+            message: {
+              role: 'assistant',
+              content: 'The capital of France is Paris.',
+            },
+            finish_reason: 'stop',
+            index: 0,
+          },
+        ],
+      };
       const mockMessages = [
         { role: 'user', content: 'Hello!' },
         { role: 'assistant', content: 'Hi! How can I help you today?' },

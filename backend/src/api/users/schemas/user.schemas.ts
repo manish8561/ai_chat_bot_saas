@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 import { UserStatus } from 'src/common/enums';
-import { Role } from 'src/common/role/role.enum';
+import { Role } from 'src/common/helpers/role/role.enum';
 
 export type UserDocument = HydratedDocument<User>;
 

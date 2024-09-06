@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { COOKIE_DOMAIN, COOKIE_NAME } from 'src/common/constants';
-import { AuthResponse } from 'src/common/types';
+import { AuthResponse } from '../types';
 
 class CookieHelper {
   public async createCookie(

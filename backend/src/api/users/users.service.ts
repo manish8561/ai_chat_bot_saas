@@ -5,7 +5,7 @@ import { User } from './schemas/user.schemas';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { hash } from 'bcrypt';
-import { Role } from 'src/common/role/role.enum';
+import { Role } from 'src/common/helpers/role/role.enum';
 
 @Injectable()
 export class UsersService {

@@ -10,7 +10,7 @@ import {
   USER_NOT_FOUND,
   USER_NOT_REGISTERED,
 } from 'src/common/constants/response.messages';
-import { AuthResponse } from 'src/common/types';
+import { AuthResponse } from './types';
 import { User } from '../users/schemas/user.schemas';
 
 @Injectable()

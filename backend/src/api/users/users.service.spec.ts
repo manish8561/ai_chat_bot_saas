@@ -6,7 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 import { hash } from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Role } from 'src/common/role/role.enum';
+import { Role } from 'src/common/helpers/role/role.enum';
 import { UserStatus } from 'src/common/enums';
 
 jest.mock('bcrypt', () => ({

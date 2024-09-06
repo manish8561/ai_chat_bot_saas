@@ -3,8 +3,8 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateChatDto {
   @ApiProperty({
-    example: 'Add new message',
-    description: 'The email for login',
+    example: 'What is the capital of the France?',
+    description: 'Message for chat',
   })
   @IsNotEmpty()
   @IsString()

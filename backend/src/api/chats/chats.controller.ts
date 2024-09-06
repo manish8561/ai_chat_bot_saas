@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Req,
+} from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/common/role/role.decorator';
-import { Role } from 'src/common/role/role.enum';
+import { Roles } from 'src/common/helpers/role/role.decorator';
+import { Role } from 'src/common/helpers/role/role.enum';
+import { CustomRequest } from 'src/common/interfaces';
 
 @ApiBearerAuth()
 @ApiTags('Chats')
@@ -13,13 +22,13 @@ export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
 
   @Post()
-  create(@Body() createChatDto: CreateChatDto) {
-    return this.chatsService.create(createChatDto);
+  create(@Body() createChatDto: CreateChatDto, @Req() req: CustomRequest) {
+    return this.chatsService.create(createChatDto, req.user.sub);
   }
 
   @Get()
-  findAll() {
-    return this.chatsService.findAll();
+  findAll(@Req() req: CustomRequest) {
+    return this.chatsService.findAll(req.user.sub);
   }
 
   @Get(':id')

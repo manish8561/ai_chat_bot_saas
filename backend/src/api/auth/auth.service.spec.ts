@@ -5,9 +5,9 @@ import { ConfigService } from '@nestjs/config';
 
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
-import { Role } from 'src/common/role/role.enum';
+import { Role } from 'src/common/helpers/role/role.enum';
 import { UserStatus } from 'src/common/enums';
-import { AuthResponse } from 'src/common/types';
+import { AuthResponse } from './types';
 import { LoginDto } from './dto/login.dto';
 import { HttpException } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
