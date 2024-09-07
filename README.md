@@ -62,7 +62,6 @@ Using packages in the frontend vite react-icons mui react-router-dom react-hot-t
 Manish Sharma
 [@manish8561](https://github.com/manish8561/)
 
-
 ### Reference
 https://github.com/openai/openai-node
 https://www.freecodecamp.org/news/build-an-ai-chatbot-with-the-mern-stack/
